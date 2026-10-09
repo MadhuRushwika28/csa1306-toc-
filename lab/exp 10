@@ -1,0 +1,45 @@
+#include <stdio.h>
+
+int main() {
+    int n, m, a, b, i, j, k;
+    int e[10][10] = {0};
+    int c[10][10] = {0};
+
+    printf("Enter number of states: ");
+    scanf("%d", &n);
+
+    printf("Enter number of epsilon transitions: ");
+    scanf("%d", &m);
+
+    printf("Enter transitions (from to):\n");
+
+    for (i = 0; i < m; i++) {
+        scanf("%d%d", &a, &b);
+        e[a][b] = 1;
+    }
+
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < n; j++)
+            c[i][j] = e[i][j];
+
+        c[i][i] = 1;
+    }
+
+    for (k = 0; k < n; k++)
+        for (i = 0; i < n; i++)
+            for (j = 0; j < n; j++)
+                c[i][j] = c[i][j] ||
+                          (c[i][k] && c[k][j]);
+
+    for (i = 0; i < n; i++) {
+        printf("Epsilon closure of q%d: ", i);
+
+        for (j = 0; j < n; j++)
+            if (c[i][j])
+                printf("q%d ", j);
+
+        printf("\n");
+    }
+
+    return 0;
+}
