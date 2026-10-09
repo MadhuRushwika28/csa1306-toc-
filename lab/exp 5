@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char s[100];
+    int i = 0, j, k, n, valid = 1;
+
+    printf("Enter string (e for empty): ");
+    scanf("%s", s);
+
+    if (strcmp(s, "e") == 0) {
+        printf("String Accepted");
+        return 0;
+    }
+
+    n = strlen(s);
+
+    while (s[i] == '0')
+        i++;
+
+    j = i;
+
+    while (s[j] == '1')
+        j++;
+
+    k = j;
+
+    while (s[k] == '0')
+        k++;
+
+    if (k != n || i != n - k)
+        valid = 0;
+
+    for (i = 0; i < n; i++)
+        if (s[i] != '0' && s[i] != '1')
+            valid = 0;
+
+    if (valid)
+        printf("String Accepted");
+    else
+        printf("String Rejected");
+
+    return 0;
+}
